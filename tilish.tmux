@@ -203,8 +203,8 @@ else
         select-pane -t 'bottom-right' \\\; split-window \\\; run-shell 'tmux select-layout' \\\; send escape
 fi
 
-# Name a window with Alt + n.
-tmux $bind "${mod}n" \
+# Name a window with Alt + r.
+tmux $bind "${mod}r" \
     command-prompt -p 'Workspace name:' 'rename-window "%%"'
 
 # Close a window with Alt + Shift + q.
