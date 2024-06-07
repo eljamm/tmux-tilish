@@ -151,12 +151,15 @@ fi
 # Switch layout with Alt + <mnemonic key>. The mnemonics are `s` and `S` for
 # layouts Vim would generate with `:split`, and `v` and `V` for `:vsplit`.
 # The remaining mappings based on `z` and `t` should be quite obvious.
-bind_layout "${mod}s" 'main-horizontal'
-bind_layout "${mod}S" 'even-vertical'
-bind_layout "${mod}v" 'main-vertical'
-bind_layout "${mod}V" 'even-horizontal'
-bind_layout "${mod}t" 'tiled'
-bind_layout "${mod}z" 'zoom'
+# TODO:
+# Integrate mod+v and mod+h with nvim
+bind_layout "${mod}z" 'main-horizontal'
+bind_layout "${mod}Z" 'even-vertical'
+bind_layout "${mod}u" 'main-vertical'
+bind_layout "${mod}U" 'even-horizontal'
+bind_layout "${mod}T" 'tiled'
+bind_layout "${mod}m" 'zoom'
+bind_layout "${mod}M" 'zoom'
 
 # Refresh the current layout (e.g. after deleting a pane).
 if [ -z "$legacy" ]; then
@@ -165,8 +168,8 @@ else
     tmux $bind "${mod}r" run-shell 'tmux select-layout'\\\; send escape
 fi
 
-# Switch pane via Alt + o. (Mirrors Tmux `Ctrl-b o` and Emacs `Ctrl-x o`.)
-tmux $bind "${mod}o" select-pane -t :.+1
+# Switch pane via Alt + Shift + o. (Mirrors Tmux `Ctrl-b o` and Emacs `Ctrl-x o`.)
+tmux $bind "${mod}O" select-pane -t :.+1
 
 # Switch to pane via Alt + hjkl.
 tmux $bind "${mod}${h}" select-pane -L
@@ -196,12 +199,12 @@ else
         select-pane -t 'bottom-right' \\\; split-window \\\; run-shell 'tmux select-layout' \\\; send escape
 fi
 
-# Open a terminal with Alt + a.
+# Open a terminal with Alt + s.
 if [ -z "$legacy" ]; then
-    tmux $bind "${mod}a" \
+    tmux $bind "${mod}s" \
         run-shell 'cwd="`tmux display -p \"#{pane_current_path}\"`"; tmux select-pane -t "bottom-right"; tmux split-pane -c "$cwd"'
 else
-    tmux $bind "${mod}a" \
+    tmux $bind "${mod}s" \
         select-pane -t 'bottom-right' \\\; split-window \\\; run-shell 'tmux select-layout' \\\; send escape
 fi
 
