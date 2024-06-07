@@ -54,9 +54,11 @@ fi
 # Determine modifier vs. prefix key.
 if [ -z "${prefix:-}" ]; then
     bind='bind -n'
+    unbind='unbind -n'
     mod='M-'
 else
     bind='bind -rT tilish'
+    unbind='unbind -rT tilish'
     mod=''
 fi
 # }}}
@@ -283,3 +285,9 @@ if [ -z "$legacy" ] && [ "${dmenu:-}" = "on" ]; then
     fi
 fi
 # }}}
+
+# TODO: integrate this better with neovim
+tmux $unbind "${mod}${h}"
+tmux $unbind "${mod}${j}"
+tmux $unbind "${mod}${k}"
+tmux $unbind "${mod}${l}"
