@@ -158,8 +158,7 @@ bind_layout "${mod}Z" 'even-vertical'
 bind_layout "${mod}u" 'main-vertical'
 bind_layout "${mod}U" 'even-horizontal'
 bind_layout "${mod}T" 'tiled'
-bind_layout "${mod}m" 'zoom'
-bind_layout "${mod}M" 'zoom'
+bind_layout "${mod}f" 'zoom'
 
 # Refresh the current layout (e.g. after deleting a pane).
 if [ -z "$legacy" ]; then
@@ -168,8 +167,8 @@ else
     tmux $bind "${mod}r" run-shell 'tmux select-layout'\\\; send escape
 fi
 
-# Switch pane via Alt + Shift + o. (Mirrors Tmux `Ctrl-b o` and Emacs `Ctrl-x o`.)
-tmux $bind "${mod}O" select-pane -t :.+1
+# Switch pane via Ctrl-Shift-o. (Mirrors Tmux `Ctrl-b o` and Emacs `Ctrl-x o`.)
+tmux $bind "C-O" select-pane -t :.+1
 
 # Switch to pane via Alt + hjkl.
 tmux $bind "${mod}${h}" select-pane -L
@@ -280,17 +279,17 @@ if [ -z "$legacy" ] && [ "${dmenu:-}" = "on" ]; then
         # The environment variables of your `default-shell` are used when running `fzf`.
         # This solution is about an order of magnitude faster than invoking `compgen`.
         # Based on: https://medium.com/njiuko/using-fzf-instead-of-dmenu-2780d184753f
-        tmux $bind "${mod}d" \
+        tmux $bind "${mod}D" \
             select-pane -t '{bottom-right}' \\\; split-pane 'sh -c "exec \$(echo \"\$PATH\" | tr \":\" \"\n\" | xargs -I{} -- find {} -maxdepth 1 -mindepth 1 -executable 2>/dev/null | sort -u | fzf)"'
     else
-        tmux $bind "${mod}d" \
+        tmux $bind "${mod}D" \
             display 'To enable this function, install `fzf` and restart `tmux`.'
     fi
 fi
 # }}}
 
 # TODO: integrate this better with neovim
-tmux $unbind "${mod}${h}"
-tmux $unbind "${mod}${j}"
-tmux $unbind "${mod}${k}"
-tmux $unbind "${mod}${l}"
+# tmux $unbind "${mod}${h}"
+# tmux $unbind "${mod}${j}"
+# tmux $unbind "${mod}${k}"
+# tmux $unbind "${mod}${l}"
